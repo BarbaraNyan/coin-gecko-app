@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/USDFragment">
+
+    <fragment
+        android:id="@+id/USDFragment"
+        android:name="com.example.trainee_test.fragments.USDFragment"
+        android:label="fragment_usd_list"
+        tools:layout="@layout/fragment_usd_list" />
+    <fragment
+        android:id="@+id/EURFragment"
+        android:name="com.example.trainee_test.fragments.EURFragment"
+        android:label="fragment_eur_list"
+        tools:layout="@layout/fragment_eur_list" />
+</navigation>

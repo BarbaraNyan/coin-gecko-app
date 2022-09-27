@@ -9,10 +9,23 @@
         android:id="@+id/USDFragment"
         android:name="com.example.trainee_test.fragments.USDFragment"
         android:label="@string/toolbar_name"
-        tools:layout="@layout/fragment_usd_list" />
+        tools:layout="@layout/fragment_usd_list" >
+        <action
+            android:id="@+id/action_USDFragment_to_errorFragment"
+            app:destination="@id/errorFragment" />
+    </fragment>
     <fragment
         android:id="@+id/EURFragment"
         android:name="com.example.trainee_test.fragments.EURFragment"
         android:label="@string/toolbar_name"
         tools:layout="@layout/fragment_eur_list" />
+    <fragment
+        android:id="@+id/errorFragment"
+        android:name="com.example.trainee_test.fragments.ErrorFragment"
+        android:label="@string/toolbar_name"
+        tools:layout="@layout/fragment_error" >
+        <action
+            android:id="@+id/action_errorFragment_to_USDFragment"
+            app:destination="@id/USDFragment" />
+    </fragment>
 </navigation>

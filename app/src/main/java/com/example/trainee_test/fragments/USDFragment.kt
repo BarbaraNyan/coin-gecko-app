@@ -8,7 +8,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.trainee_test.R
 import com.example.trainee_test.adapters.CryptoAdapter
 import com.example.trainee_test.cryptolist.CryptoListViewModel
 import com.example.trainee_test.databinding.FragmentUsdListBinding
@@ -36,7 +38,6 @@ class USDFragment : Fragment(), CryptoAdapter.OnItemClickListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         binding = FragmentUsdListBinding.inflate(layoutInflater)
         return binding.root
     }
@@ -62,20 +63,22 @@ class USDFragment : Fragment(), CryptoAdapter.OnItemClickListener {
     }
 
     private fun callAPI(){
+        val progressBar = binding.progressBar
         CoroutineScope(Dispatchers.Main).launch {
             repeat(repeatTimes){
                 cryptoListViewModel._cryptoListValue.collect{value->
                     when {
                         value.isLoading -> {
-//                            progressBar.visibility = View.VISIBLE
+                            progressBar.visibility = View.VISIBLE
                         }
                         value.error.isNotBlank() -> {
-//                            progressBar.visibility = View.GONE
+                            findNavController().navigate(R.id.action_USDFragment_to_errorFragment)
+                            progressBar.visibility = View.GONE
                             repeatTimes = 0
                             Toast.makeText(context, value.error, Toast.LENGTH_LONG).show()
                         }
                         value.cryptoList.isNotEmpty() -> {
-//                            progressBar.visibility = View.GONE
+                            progressBar.visibility = View.GONE
                             repeatTimes = 0
                             cryptoList.addAll(value.cryptoList)
                             cryptoAdapter.setData(cryptoList as ArrayList<CryptoItem>)

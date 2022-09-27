@@ -23,6 +23,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.myToolbar)
+
         setupActionBarWithNavController(findNavController(R.id.fragHolder))
 
         val toolbar = binding.myToolbar

@@ -48,10 +48,10 @@
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="89dp"
                 android:layout_height="wrap_content"
-                android:text="@string/usd"
-                android:textSize="14sp"
-                android:textAlignment="center"
                 android:layout_marginLeft="16dp"
+                android:text="@string/usd"
+                android:textAlignment="center"
+                android:textSize="14sp"
                 android:theme="@style/Theme.MaterialComponents.Light" />
 
             <com.google.android.material.chip.Chip

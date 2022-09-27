@@ -5,9 +5,19 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.trainee_test.adapters.CryptoAdapter
+import com.example.trainee_test.cryptolist.CryptoListViewModel
 import com.example.trainee_test.databinding.FragmentUsdListBinding
+import com.example.trainee_test.model.CryptoItem
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -19,14 +29,21 @@ import com.example.trainee_test.databinding.FragmentUsdListBinding
  * Use the [USDFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
+@AndroidEntryPoint
 class USDFragment : Fragment(), CryptoAdapter.OnItemClickListener {
     // TODO: Rename and change types of parameters
 //    private var param1: String? = null
 //    private var param2: String? = null
 
     private lateinit var binding: FragmentUsdListBinding
+    private lateinit var cryptoAdapter: CryptoAdapter
+    private val cryptoList = arrayListOf<CryptoItem>()
+    private var repeatTimes = 3
+    private val cryptoListViewModel: CryptoListViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
 //        arguments?.let {
 //            param1 = it.getString(ARG_PARAM1)
 //            param2 = it.getString(ARG_PARAM2)
@@ -44,7 +61,7 @@ class USDFragment : Fragment(), CryptoAdapter.OnItemClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val cryptoAdapter = CryptoAdapter(this)
+        cryptoAdapter = CryptoAdapter(this, ArrayList())
 
         binding.apply {
             rvUSDItems.apply {
@@ -53,6 +70,38 @@ class USDFragment : Fragment(), CryptoAdapter.OnItemClickListener {
             }
         }
 
+    }
+
+    override fun onStart() {
+        super.onStart()
+        cryptoListViewModel.getAllCoins("1")
+        callAPI()
+    }
+
+    private fun callAPI(){
+        CoroutineScope(Dispatchers.Main).launch {
+            repeat(repeatTimes){
+                cryptoListViewModel._cryptoListValue.collect{value->
+                    when {
+                        value.isLoading -> {
+//                            progressBar.visibility = View.VISIBLE
+                        }
+                        value.error.isNotBlank() -> {
+//                            progressBar.visibility = View.GONE
+                            repeatTimes = 0
+                            Toast.makeText(context, value.error, Toast.LENGTH_LONG).show()
+                        }
+                        value.cryptoList.isNotEmpty() -> {
+//                            progressBar.visibility = View.GONE
+                            repeatTimes = 0
+                            cryptoList.addAll(value.cryptoList)
+                            cryptoAdapter.setData(cryptoList as ArrayList<CryptoItem>)
+                        }
+                    }
+                    delay(1000)
+                }
+            }
+        }
     }
 
 //    companion object {

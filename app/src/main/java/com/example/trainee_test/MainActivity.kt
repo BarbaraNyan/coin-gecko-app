@@ -10,7 +10,9 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.trainee_test.databinding.ActivityMainBinding
 import com.example.trainee_test.fragments.USDFragment
 import com.google.android.material.chip.Chip
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {

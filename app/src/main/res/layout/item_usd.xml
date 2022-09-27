@@ -10,23 +10,25 @@
         android:id="@+id/imgCrypto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginLeft="16dp"
+        tools:ignore="ImageContrastCheck"
         tools:srcCompat="@drawable/ic_btc" />
 
     <TextView
         android:id="@+id/cryptoNameFull"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:gravity="top"
         android:text="Bitcoin"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/imgCrypto"
-        android:layout_marginLeft="16dp"
         app:flow_verticalAlign="center"
-        android:gravity="top"/>
+        app:layout_constraintStart_toEndOf="@+id/imgCrypto"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/cryptoNameShort"

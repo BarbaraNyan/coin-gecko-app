@@ -1,13 +1,19 @@
 package com.example.trainee_test.adapters
 
 import android.annotation.SuppressLint
+import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.trainee_test.R
 import com.example.trainee_test.databinding.ItemUsdBinding
 import com.example.trainee_test.model.CryptoItem
+import com.squareup.picasso.Picasso
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.withContext
 
 class CryptoAdapter(private val listener: OnItemClickListener, var cryptoList : ArrayList<CryptoItem>): ListAdapter<CryptoItem, CryptoAdapter.CryptoItemViewHolder>(CryptoComparator()) {
 
@@ -29,7 +35,9 @@ class CryptoAdapter(private val listener: OnItemClickListener, var cryptoList : 
     override fun onBindViewHolder(holder: CryptoItemViewHolder, position: Int) {
 //        val curItem = getItem(position)
         val curItem = cryptoList[position]
-        holder.bind(curItem.cryptoNameFull, curItem.cryptoNameShort, curItem.cryptoPrice, curItem.cryptoPercent)
+//        Picasso.get().load(curItem.cryptoImage).into(holder.cryptoImage)
+
+        holder.bind(curItem.cryptoNameFull, curItem.cryptoNameShort, curItem.cryptoPrice, curItem.cryptoPercent, curItem.cryptoImage)
     }
 
     inner class CryptoItemViewHolder(private val binding: ItemUsdBinding): RecyclerView.ViewHolder(binding.root) {
@@ -37,7 +45,7 @@ class CryptoAdapter(private val listener: OnItemClickListener, var cryptoList : 
             binding.apply {
                 val position = bindingAdapterPosition
                 if(position!=RecyclerView.NO_POSITION){
-                    val crypto =getItem(position)
+                    val crypto = getItem(position)
                 }
             }
         }
@@ -46,12 +54,17 @@ class CryptoAdapter(private val listener: OnItemClickListener, var cryptoList : 
         private val cryptoItemNameShort = binding.cryptoNameShort
         private val cryptoItemPrice = binding.cryptoPrice
         private val cryptoItemPercent = binding.cryptoPercent
+        val cryptoImage = binding.imgCrypto
 
-        fun bind(nameFull: String?, nameShort: String?, price: Double?, percent: Double?){
+        fun bind(nameFull: String?, nameShort: String?, price: Double?, percent: Double?, image: String?){
             cryptoItemNameFull.text = nameFull
             cryptoItemNameShort.text = nameShort
+//            cryptoItemPrice.text = Resources.getSystem().getString(R.string.usd_price, price)
             cryptoItemPrice.text = price.toString()
             cryptoItemPercent.text = percent.toString()
+            Picasso.get().load(image).into(cryptoImage)
+
+//            cryptoImage
         }
 
     }

@@ -10,6 +10,7 @@
         android:id="@+id/fragHolder"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -29,15 +30,17 @@
             android:id="@+id/myToolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?attr/colorPrimary"
+            android:background="@color/white"
             android:minHeight="?attr/actionBarSize"
-            android:theme="?attr/actionBarTheme" />
+            android:theme="?attr/actionBarTheme"
+            app:title="Список криптовалют"/>
 
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/chipGroup"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:singleSelection="true"
+            android:background="@color/white"
             >
 
             <com.google.android.material.chip.Chip
@@ -45,8 +48,10 @@
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="89dp"
                 android:layout_height="wrap_content"
-                android:text="USD"
+                android:text="@string/usd"
                 android:textSize="14sp"
+                android:textAlignment="center"
+                android:layout_marginLeft="16dp"
                 android:theme="@style/Theme.MaterialComponents.Light" />
 
             <com.google.android.material.chip.Chip
@@ -54,7 +59,8 @@
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="89dp"
                 android:layout_height="wrap_content"
-                android:text="EUR"
+                android:text="@string/eur"
+                android:textAlignment="center"
                 android:theme="@style/Theme.MaterialComponents.Light" />
         </com.google.android.material.chip.ChipGroup>
 

@@ -37,7 +37,9 @@ class MainActivity : AppCompatActivity() {
         var lastCheckedId = View.NO_ID
         chipGroup.setOnCheckedChangeListener { group, checkedId ->
             when(checkedId){
-                R.id.chipEUR -> findNavController(R.id.fragHolder).navigate(R.id.EURFragment)
+                R.id.chipEUR -> {
+                    findNavController(R.id.fragHolder).navigate(R.id.EURFragment)
+                }
                 R.id.chipUSD -> findNavController(R.id.fragHolder).navigate(R.id.USDFragment)
             }
 //            if(checkedId == View.NO_ID) {

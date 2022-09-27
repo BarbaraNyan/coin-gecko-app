@@ -8,11 +8,11 @@
     <fragment
         android:id="@+id/USDFragment"
         android:name="com.example.trainee_test.fragments.USDFragment"
-        android:label="fragment_usd_list"
+        android:label="@string/toolbar_name"
         tools:layout="@layout/fragment_usd_list" />
     <fragment
         android:id="@+id/EURFragment"
         android:name="com.example.trainee_test.fragments.EURFragment"
-        android:label="fragment_eur_list"
+        android:label="@string/toolbar_name"
         tools:layout="@layout/fragment_eur_list" />
 </navigation>

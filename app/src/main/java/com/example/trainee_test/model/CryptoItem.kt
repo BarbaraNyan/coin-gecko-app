@@ -5,5 +5,6 @@ data class CryptoItem (
     var cryptoNameFull: String = "",
     var cryptoNameShort: String = "",
     var cryptoPrice: Double,
-    var cryptoPercent: Double
+    var cryptoPercent: Double,
+    var cryptoImage: String
 )

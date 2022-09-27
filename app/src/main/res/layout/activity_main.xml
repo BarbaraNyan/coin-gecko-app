@@ -37,11 +37,12 @@
 
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/chipGroup"
+            style="@style/Base.CardView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:singleSelection="true"
             android:background="@color/white"
-            >
+            app:checkedChip="@id/chipUSD"
+            app:singleSelection="true">
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chipUSD"

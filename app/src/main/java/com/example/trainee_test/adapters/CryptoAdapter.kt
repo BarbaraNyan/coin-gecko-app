@@ -50,6 +50,8 @@ class CryptoAdapter(private val listener: OnItemClickListener, var cryptoList : 
             }
         }
 
+        private val res = itemView.context.resources
+
         private val cryptoItemNameFull = binding.cryptoNameFull
         private val cryptoItemNameShort = binding.cryptoNameShort
         private val cryptoItemPrice = binding.cryptoPrice
@@ -57,14 +59,21 @@ class CryptoAdapter(private val listener: OnItemClickListener, var cryptoList : 
         val cryptoImage = binding.imgCrypto
 
         fun bind(nameFull: String?, nameShort: String?, price: Double?, percent: Double?, image: String?){
+            Picasso.get().load(image).into(cryptoImage)
             cryptoItemNameFull.text = nameFull
             cryptoItemNameShort.text = nameShort
-//            cryptoItemPrice.text = Resources.getSystem().getString(R.string.usd_price, price)
-            cryptoItemPrice.text = price.toString()
-            cryptoItemPercent.text = percent.toString()
-            Picasso.get().load(image).into(cryptoImage)
+            cryptoItemPrice.text = String.format(res.getString(R.string.usd_price, price.toString()))
+            if (percent != null) {
+                if(percent > 0){
+                    cryptoItemPercent.text = String.format(res.getString(R.string.usd_percent), "+", percent.toString())
+                    cryptoItemPercent.setTextColor(res.getColor(R.color.green))
+                }
+                else{
+                    cryptoItemPercent.text = String.format(res.getString(R.string.usd_percent), "", percent.toString())
+                    cryptoItemPercent.setTextColor(res.getColor(R.color.red))
+                }
+            }
 
-//            cryptoImage
         }
 
     }

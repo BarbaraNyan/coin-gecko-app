@@ -4,7 +4,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string name="toolbar_name">Список криптовалют</string>
-    <string name="usd_price">$ %f</string>
+    <string name="usd_price">$ %s</string>
+    <string name="usd_percent">%s%s%%</string>
     <string name="eur">EUR</string>
     <string name="usd">USD</string>
 </resources>

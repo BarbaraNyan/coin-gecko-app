@@ -1,27 +1,28 @@
 package com.example.trainee_test.fragments
 
 import android.os.Bundle
-import android.text.Html
-import android.text.method.LinkMovementMethod
 import android.text.util.Linkify
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
-import com.example.trainee_test.R
 import com.example.trainee_test.cryptolist.CryptoDescriptionViewModel
 import com.example.trainee_test.databinding.FragmentDescriptionBinding
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+
+private const val ARG_PARAM_CRYPTO_ID = "CryptoId"
+private const val ARG_PARAM_CRYPTO_NAME = "CryptoName"
 
 @AndroidEntryPoint
 class DescriptionFragment : Fragment() {
+    private var paramCryptoId: String? = null
+    private var paramCryptoName: String? = null
 
     private lateinit var binding: FragmentDescriptionBinding
     private val cryptoDescriptionViewModel: CryptoDescriptionViewModel by viewModels()
@@ -29,8 +30,15 @@ class DescriptionFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        cryptoDescriptionViewModel.getCryptoDescrById("bitcoin")
-        callCoinDescriptionApi("bitcoin")
+        arguments?.let {
+            paramCryptoId = it.getString(ARG_PARAM_CRYPTO_ID)
+            paramCryptoName = it.getString(ARG_PARAM_CRYPTO_NAME)
+        }
+//        val cryptoName = arguments?.getString("CryptoName")
+//        if (cryptoName != null) {
+            cryptoDescriptionViewModel.getCryptoDescrById(paramCryptoId.toString())
+            callCoinDescriptionApi(paramCryptoId.toString())
+//        }
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,17 +72,18 @@ class DescriptionFragment : Fragment() {
 //                            binding.tvCryptoDescription.movementMethod = LinkMovementMethod.getInstance()
 //                            binding.tvCryptoDescription.setLinkTextColor(resources.getColor(R.color.red))
 //                            binding.tvCryptoDescription.text = Html.fromHtml(value.cryptoDescription.description)
-                            binding.tvCryptoDescription.text = value.cryptoDescription.description
-                            Linkify.addLinks(binding.tvCryptoDescription, Linkify.WEB_URLS)
                             binding.tvCryptoCategories.text =
                                 value.cryptoDescription.categories.joinToString(separator = ", ")
+
+//                            binding.tvCryptoDescription.text = cryptoName
+                            binding.tvCryptoDescription.text = value.cryptoDescription.description
+                            Linkify.addLinks(binding.tvCryptoDescription, Linkify.WEB_URLS)
                         }
                     }
                 }
             }
         }
     }
-
 
 
 }

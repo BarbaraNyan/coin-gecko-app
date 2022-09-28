@@ -29,6 +29,7 @@ class USDFragment : Fragment(), CryptoAdapter.OnItemClickListener {
     private var repeatTimes = 3
     private val cryptoListViewModel: CryptoListViewModel by viewModels()
 
+    private val bundle = Bundle()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -90,8 +91,10 @@ class USDFragment : Fragment(), CryptoAdapter.OnItemClickListener {
         }
     }
 
-    override fun openCryptoDescription() {
-        findNavController().navigate(R.id.action_USDFragment_to_descriptionFragment)
+    override fun openCryptoDescription(id: String, name: String) {
+        bundle.putString("CryptoId", id)
+        bundle.putString("CryptoName", name)
+        findNavController().navigate(R.id.action_USDFragment_to_descriptionFragment, bundle)
     }
 
 //    companion object {

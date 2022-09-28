@@ -37,7 +37,7 @@ class CryptoAdapter(private val listener: OnItemClickListener, var cryptoList : 
         val curItem = cryptoList[position]
 //        Picasso.get().load(curItem.cryptoImage).into(holder.cryptoImage)
 
-        holder.bind(curItem.cryptoNameFull, curItem.cryptoNameShort, curItem.cryptoPrice, curItem.cryptoPercent, curItem.cryptoImage)
+        holder.bind(curItem.id, curItem.cryptoNameFull, curItem.cryptoNameShort, curItem.cryptoPrice, curItem.cryptoPercent, curItem.cryptoImage)
     }
 
     inner class CryptoItemViewHolder(private val binding: ItemUsdBinding): RecyclerView.ViewHolder(binding.root) {
@@ -48,20 +48,22 @@ class CryptoAdapter(private val listener: OnItemClickListener, var cryptoList : 
                     val crypto = getItem(position)
                 }
                 layoutItem.setOnClickListener { it ->
-                    listener.openCryptoDescription()
+                    listener.openCryptoDescription(idCrypto, cryptoNameFull.text.toString())
                 }
             }
         }
 
         private val res = itemView.context.resources
 
+        private var idCrypto = "btc"
         private val cryptoItemNameFull = binding.cryptoNameFull
         private val cryptoItemNameShort = binding.cryptoNameShort
         private val cryptoItemPrice = binding.cryptoPrice
         private val cryptoItemPercent = binding.cryptoPercent
-        val cryptoImage = binding.imgCrypto
+        private val cryptoImage = binding.imgCrypto
 
-        fun bind(nameFull: String?, nameShort: String?, price: Double?, percent: Double?, image: String?){
+        fun bind(id:String, nameFull: String?, nameShort: String?, price: Double?, percent: Double?, image: String?){
+            idCrypto = id
             Picasso.get().load(image).into(cryptoImage)
             cryptoItemNameFull.text = nameFull
             cryptoItemNameShort.text = nameShort
@@ -90,7 +92,7 @@ class CryptoAdapter(private val listener: OnItemClickListener, var cryptoList : 
     }
 
     interface OnItemClickListener {
-        fun openCryptoDescription()
+        fun openCryptoDescription(id:String, name: String)
     }
 
 }

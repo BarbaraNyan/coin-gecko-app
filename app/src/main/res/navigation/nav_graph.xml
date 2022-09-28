@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_USDFragment_to_errorFragment"
             app:destination="@id/errorFragment" />
+        <action
+            android:id="@+id/action_USDFragment_to_descriptionFragment"
+            app:destination="@id/descriptionFragment" />
     </fragment>
     <fragment
         android:id="@+id/EURFragment"
@@ -28,4 +31,9 @@
             android:id="@+id/action_errorFragment_to_USDFragment"
             app:destination="@id/USDFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/descriptionFragment"
+        android:name="com.example.trainee_test.fragments.DescriptionFragment"
+        android:label="Bitcoin"
+        tools:layout="@layout/fragment_description" />
 </navigation>

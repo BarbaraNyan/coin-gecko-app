@@ -90,6 +90,10 @@ class USDFragment : Fragment(), CryptoAdapter.OnItemClickListener {
         }
     }
 
+    override fun openCryptoDescription() {
+        findNavController().navigate(R.id.action_USDFragment_to_descriptionFragment)
+    }
+
 //    companion object {
 //        /**
 //         * Use this factory method to create a new instance of

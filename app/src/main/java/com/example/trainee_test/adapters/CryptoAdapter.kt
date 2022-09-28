@@ -47,6 +47,9 @@ class CryptoAdapter(private val listener: OnItemClickListener, var cryptoList : 
                 if(position!=RecyclerView.NO_POSITION){
                     val crypto = getItem(position)
                 }
+                layoutItem.setOnClickListener { it ->
+                    listener.openCryptoDescription()
+                }
             }
         }
 
@@ -87,7 +90,7 @@ class CryptoAdapter(private val listener: OnItemClickListener, var cryptoList : 
     }
 
     interface OnItemClickListener {
-
+        fun openCryptoDescription()
     }
 
 }

@@ -43,6 +43,9 @@
         <action
             android:id="@+id/action_descriptionFragment_to_CryptoListFragment"
             app:destination="@id/CryptoListFragment" />
+        <action
+            android:id="@+id/action_descriptionFragment_to_errorFragment"
+            app:destination="@id/errorFragment" />
     </fragment>
 
 </navigation>

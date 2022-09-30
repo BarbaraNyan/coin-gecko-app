@@ -82,6 +82,7 @@ class DescriptionFragment : Fragment() {
                             binding.progressBar.visibility = View.VISIBLE
                         }
                         value.error.isNotBlank() -> {
+                            findNavController().navigate(R.id.action_descriptionFragment_to_errorFragment)
                             binding.progressBar.visibility = View.GONE
                             repeatTimes = 0
                         }

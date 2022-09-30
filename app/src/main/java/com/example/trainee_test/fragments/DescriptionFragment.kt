@@ -1,5 +1,6 @@
 package com.example.trainee_test.fragments
 
+import android.opengl.Visibility
 import android.os.Bundle
 import android.text.util.Linkify
 import android.view.LayoutInflater
@@ -8,6 +9,8 @@ import android.view.ViewGroup
 import android.widget.Toolbar
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.ActionBar
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
@@ -15,6 +18,8 @@ import androidx.navigation.fragment.findNavController
 import com.example.trainee_test.R
 import com.example.trainee_test.cryptolist.CryptoDescriptionViewModel
 import com.example.trainee_test.databinding.FragmentDescriptionBinding
+import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.chip.ChipGroup
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
@@ -53,23 +58,21 @@ class DescriptionFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        val callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                findNavController().navigate(R.id.action_descriptionFragment_to_CryptoListFragment)
+                activity?.findViewById<ChipGroup>(R.id.chipGroup)?.visibility = View.VISIBLE
+                activity?.findViewById<ChipGroup>(R.id.chipGroup)?.check(R.id.chipUSD)
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(callback)
         binding = FragmentDescriptionBinding.inflate(layoutInflater)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val callback: OnBackPressedCallback =
-            object : OnBackPressedCallback(true)
-            {
-                override fun handleOnBackPressed() {
-                }
-            }
-
-        requireActivity().onBackPressedDispatcher.addCallback(requireActivity(),
-            callback
-        )
+        activity?.findViewById<ChipGroup>(R.id.chipGroup)?.visibility = View.GONE
     }
 
 

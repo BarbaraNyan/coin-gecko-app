@@ -14,6 +14,7 @@ import com.example.trainee_test.adapters.CryptoAdapter
 import com.example.trainee_test.cryptolist.CryptoListViewModel
 import com.example.trainee_test.databinding.FragmentCryptoListBinding
 import com.example.trainee_test.model.CryptoItem
+import com.google.android.material.chip.ChipGroup
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -42,6 +43,7 @@ class CryptoListFragment : Fragment(), CryptoAdapter.OnItemClickListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+//        activity?.supportFragmentManager?.popBackStack()
         binding = FragmentCryptoListBinding.inflate(layoutInflater)
         return binding.root
     }

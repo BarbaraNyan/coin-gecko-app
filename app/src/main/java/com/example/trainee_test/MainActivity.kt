@@ -14,15 +14,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private val bundle = Bundle()
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
-            android.R.id.home -> {
-                super.onBackPressed()
-                return true
-            }
-        }
-        return super.onOptionsItemSelected(item)
-    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 //        setContentView(R.layout.activity_main)
@@ -40,6 +31,14 @@ class MainActivity : AppCompatActivity() {
         val chipGroup = binding.chipGroup
 
         toolbar.title = "Список криптовалют"
+        toolbar.setNavigationOnClickListener { onBackPressed() }
+//        toolbar.setNavigationOnClickListener {
+////            if(supportFragmentManager.backStackEntryCount > 0)
+////                supportFragmentManager.popBackStack()
+////            else
+////                finish()
+//            onBackPressed()
+//        }
 
 //        chipGroup.setOnCheckedStateChangeListener()
 

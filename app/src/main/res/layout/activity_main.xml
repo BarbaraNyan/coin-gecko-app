@@ -6,66 +6,71 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <fragment
-        android:id="@+id/fragHolder"
-        android:name="androidx.navigation.fragment.NavHostFragment"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="100dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
-        app:navGraph="@navigation/nav_graph" />
-
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appBarLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/myToolbar"
+        android:orientation="vertical">
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:minHeight="?attr/actionBarSize"
-            android:theme="?attr/actionBarTheme"
-            app:title="Список криптовалют"/>
+            app:layout_constraintBottom_toTopOf="@+id/fragHolder"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/chipGroup"
-            style="@style/Base.CardView"
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/myToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:minHeight="?attr/actionBarSize"
+                android:theme="?attr/actionBarTheme"
+                app:title="Список криптовалют" />
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipGroup"
+                style="@style/Base.CardView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                app:checkedChip="@id/chipUSD"
+                app:singleSelection="true">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipUSD"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="89dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:text="@string/usd"
+                    android:textAlignment="center"
+                    android:textSize="14sp"
+                    android:theme="@style/Theme.MaterialComponents.Light" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipEUR"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="89dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/eur"
+                    android:textAlignment="center"
+                    android:theme="@style/Theme.MaterialComponents.Light" />
+            </com.google.android.material.chip.ChipGroup>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <fragment
+            android:id="@+id/fragHolder"
+            android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/white"
-            app:checkedChip="@id/chipUSD"
-            app:singleSelection="true">
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
+            app:navGraph="@navigation/nav_graph" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chipUSD"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
-                android:layout_width="89dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:text="@string/usd"
-                android:textAlignment="center"
-                android:textSize="14sp"
-                android:theme="@style/Theme.MaterialComponents.Light" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chipEUR"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
-                android:layout_width="89dp"
-                android:layout_height="wrap_content"
-                android:text="@string/eur"
-                android:textAlignment="center"
-                android:theme="@style/Theme.MaterialComponents.Light" />
-        </com.google.android.material.chip.ChipGroup>
-
-    </com.google.android.material.appbar.AppBarLayout>
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,9 +10,9 @@ data class CoinListDTOItem (
     val price_change_percentage_24h: Double,
     val image: String
 ){
-    fun toCryptoItem(): CryptoItem{
+    fun toCryptoItem(currencyName: String): CryptoItem{
         return CryptoItem(id = id, cryptoNameFull = name, cryptoNameShort = symbol,
             cryptoPrice = current_price, cryptoPercent = price_change_percentage_24h,
-            cryptoImage = image)
+            cryptoImage = image, currencyName = currencyName)
     }
 }

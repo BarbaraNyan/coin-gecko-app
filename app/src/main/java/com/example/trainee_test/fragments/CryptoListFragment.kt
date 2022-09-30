@@ -7,13 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModel
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.trainee_test.R
 import com.example.trainee_test.adapters.CryptoAdapter
 import com.example.trainee_test.cryptolist.CryptoListViewModel
-import com.example.trainee_test.databinding.FragmentUsdListBinding
+import com.example.trainee_test.databinding.FragmentCryptoListBinding
 import com.example.trainee_test.model.CryptoItem
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
@@ -21,9 +20,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
+private const val ARG_PARAM_CURRENCY_NAME = "CurrencyName"
+
 @AndroidEntryPoint
-class USDFragment : Fragment(), CryptoAdapter.OnItemClickListener {
-    private lateinit var binding: FragmentUsdListBinding
+class CryptoListFragment : Fragment(), CryptoAdapter.OnItemClickListener {
+    private var paramCurrName: String? = null
+
+    private lateinit var binding: FragmentCryptoListBinding
     private lateinit var cryptoAdapter: CryptoAdapter
     private val cryptoList = arrayListOf<CryptoItem>()
     private var repeatTimes = 3
@@ -39,7 +42,7 @@ class USDFragment : Fragment(), CryptoAdapter.OnItemClickListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentUsdListBinding.inflate(layoutInflater)
+        binding = FragmentCryptoListBinding.inflate(layoutInflater)
         return binding.root
     }
 
@@ -59,7 +62,10 @@ class USDFragment : Fragment(), CryptoAdapter.OnItemClickListener {
 
     override fun onStart() {
         super.onStart()
-        cryptoListViewModel.getAllCoins("1")
+        arguments?.let {
+            paramCurrName = it.getString(ARG_PARAM_CURRENCY_NAME)
+        }
+        cryptoListViewModel.getAllCoins("1", currency = paramCurrName.toString())
         callAPI()
     }
 
@@ -73,7 +79,7 @@ class USDFragment : Fragment(), CryptoAdapter.OnItemClickListener {
                             progressBar.visibility = View.VISIBLE
                         }
                         value.error.isNotBlank() -> {
-                            findNavController().navigate(R.id.action_USDFragment_to_errorFragment)
+                            findNavController().navigate(R.id.action_CryptoListFragment_to_errorFragment)
                             progressBar.visibility = View.GONE
                             repeatTimes = 0
                             Toast.makeText(context, value.error, Toast.LENGTH_LONG).show()
@@ -94,26 +100,7 @@ class USDFragment : Fragment(), CryptoAdapter.OnItemClickListener {
     override fun openCryptoDescription(id: String, name: String) {
         bundle.putString("CryptoId", id)
         bundle.putString("CryptoName", name)
-        findNavController().navigate(R.id.action_USDFragment_to_descriptionFragment, bundle)
+        findNavController().navigate(R.id.action_CryptoListFragment_to_descriptionFragment, bundle)
     }
 
-//    companion object {
-//        /**
-//         * Use this factory method to create a new instance of
-//         * this fragment using the provided parameters.
-//         *
-//         * @param param1 Parameter 1.
-//         * @param param2 Parameter 2.
-//         * @return A new instance of fragment USDFragment.
-//         */
-//        // TODO: Rename and change types and number of parameters
-//        @JvmStatic
-//        fun newInstance(param1: String, param2: String) =
-//            USDFragment().apply {
-//                arguments = Bundle().apply {
-//                    putString(ARG_PARAM1, param1)
-//                    putString(ARG_PARAM2, param2)
-//                }
-//            }
-//    }
 }

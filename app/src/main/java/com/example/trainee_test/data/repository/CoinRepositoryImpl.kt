@@ -9,8 +9,8 @@ import javax.inject.Inject
 class CoinRepositoryImpl @Inject constructor(
     private val coinApi: CoinGeckoApi
 ): CoinRepository {
-    override suspend fun getAllCoins(page: String): CoinListDTO {
-        return coinApi.getAllCoins(page = page)
+    override suspend fun getAllCoins(page: String, currency: String): CoinListDTO {
+        return coinApi.getAllCoins(page = page, currency = currency)
     }
 
     override suspend fun getCoinById(id: String): CoinDescriptionDTO {

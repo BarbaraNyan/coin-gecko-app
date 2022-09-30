@@ -3,33 +3,31 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/USDFragment">
+    app:startDestination="@id/CryptoListFragment">
 
     <fragment
-        android:id="@+id/USDFragment"
-        android:name="com.example.trainee_test.fragments.USDFragment"
+        android:id="@+id/CryptoListFragment"
+        android:name="com.example.trainee_test.fragments.CryptoListFragment"
         android:label="@string/toolbar_name"
-        tools:layout="@layout/fragment_usd_list" >
+        tools:layout="@layout/fragment_crypto_list" >
+        <argument
+            android:name="CurrencyName"
+            android:defaultValue="usd"/>
         <action
-            android:id="@+id/action_USDFragment_to_errorFragment"
+            android:id="@+id/action_CryptoListFragment_to_errorFragment"
             app:destination="@id/errorFragment" />
         <action
-            android:id="@+id/action_USDFragment_to_descriptionFragment"
+            android:id="@+id/action_CryptoListFragment_to_descriptionFragment"
             app:destination="@id/descriptionFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/EURFragment"
-        android:name="com.example.trainee_test.fragments.EURFragment"
-        android:label="@string/toolbar_name"
-        tools:layout="@layout/fragment_eur_list" />
     <fragment
         android:id="@+id/errorFragment"
         android:name="com.example.trainee_test.fragments.ErrorFragment"
         android:label="@string/toolbar_name"
         tools:layout="@layout/fragment_error" >
         <action
-            android:id="@+id/action_errorFragment_to_USDFragment"
-            app:destination="@id/USDFragment" />
+            android:id="@+id/action_errorFragment_to_CryptoListFragment"
+            app:destination="@id/CryptoListFragment" />
     </fragment>
     <fragment
         android:id="@+id/descriptionFragment"
@@ -42,6 +40,9 @@
         <argument
             android:name="CryptoId"
             android:defaultValue="btc"/>
+        <action
+            android:id="@+id/action_descriptionFragment_to_CryptoListFragment"
+            app:destination="@id/CryptoListFragment" />
     </fragment>
 
 </navigation>

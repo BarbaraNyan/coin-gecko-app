@@ -2,19 +2,27 @@ package com.example.trainee_test
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.trainee_test.databinding.ActivityMainBinding
-import com.example.trainee_test.fragments.USDFragment
-import com.google.android.material.chip.Chip
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    private val bundle = Bundle()
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            android.R.id.home -> {
+                super.onBackPressed()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 //        setContentView(R.layout.activity_main)
@@ -39,10 +47,14 @@ class MainActivity : AppCompatActivity() {
         chipGroup.setOnCheckedChangeListener { group, checkedId ->
             when(checkedId){
                 R.id.chipEUR -> {
-                    findNavController(R.id.fragHolder).navigate(R.id.EURFragment)
+                    bundle.putString("CurrencyName", "eur")
+//                    findNavController(R.id.fragHolder).navigate(R.id.EURFragment)
                 }
-                R.id.chipUSD -> findNavController(R.id.fragHolder).navigate(R.id.USDFragment)
+                R.id.chipUSD -> {
+                    bundle.putString("CurrencyName", "usd")
+                }
             }
+            findNavController(R.id.fragHolder).navigate(R.id.CryptoListFragment, bundle)
 //            if(checkedId == View.NO_ID) {
 //                // User tried to uncheck, make sure to keep the chip checked
 //                group.check(lastCheckedId)
@@ -59,7 +71,7 @@ class MainActivity : AppCompatActivity() {
 //        setSupportActionBar(toolbar)
 
         chipUSD.setOnClickListener {
-            findNavController(R.id.fragHolder).navigate(R.id.USDFragment)
+            findNavController(R.id.fragHolder).navigate(R.id.CryptoListFragment)
 //            supportFragmentManager.beginTransaction().replace(R.id.fragHolder, USDFragment())
 //                .commit()
         }

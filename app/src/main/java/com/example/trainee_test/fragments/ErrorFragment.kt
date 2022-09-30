@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.example.trainee_test.R
 import com.example.trainee_test.databinding.FragmentErrorBinding
-import com.example.trainee_test.databinding.FragmentUsdListBinding
 
 class ErrorFragment : Fragment() {
 
@@ -29,7 +28,7 @@ class ErrorFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnTryAgain.setOnClickListener { it ->
-            findNavController().navigate(R.id.action_errorFragment_to_USDFragment)
+            findNavController().navigate(R.id.action_errorFragment_to_CryptoListFragment)
         }
     }
 }

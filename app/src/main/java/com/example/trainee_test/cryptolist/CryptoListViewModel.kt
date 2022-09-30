@@ -19,8 +19,8 @@ class CryptoListViewModel @Inject constructor(
     private val cryptoListValue = MutableStateFlow(CryptoListState())
     var _cryptoListValue: StateFlow<CryptoListState> = cryptoListValue
 
-    fun getAllCoins(page:String) = viewModelScope.launch(Dispatchers.IO) {
-        coinUseCase(page).collect{
+    fun getAllCoins(page:String, currency: String) = viewModelScope.launch(Dispatchers.IO) {
+        coinUseCase(page, currency).collect{
             when(it){
                 is ResponseState.Success -> {
                     cryptoListValue.value = CryptoListState(cryptoList = it.data?: emptyList())

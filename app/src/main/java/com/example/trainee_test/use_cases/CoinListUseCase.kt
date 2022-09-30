@@ -12,11 +12,11 @@ import javax.inject.Inject
 class CoinListUseCase @Inject constructor(
     private val repository: CoinRepository
 ) {
-    operator fun invoke(page: String): Flow<ResponseState<List<CryptoItem>>> = flow{
+    operator fun invoke(page: String, currency: String): Flow<ResponseState<List<CryptoItem>>> = flow{
         try{
             emit(ResponseState.Loading())
-            val cryptoItems = repository.getAllCoins(page).map {
-                it.toCryptoItem()
+            val cryptoItems = repository.getAllCoins(page, currency).map {
+                it.toCryptoItem(currency)
             }
             emit(ResponseState.Success(cryptoItems))
         }

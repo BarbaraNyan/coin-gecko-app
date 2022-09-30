@@ -5,9 +5,14 @@ import android.text.util.Linkify
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toolbar
+import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.ActionBar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import com.example.trainee_test.R
 import com.example.trainee_test.cryptolist.CryptoDescriptionViewModel
 import com.example.trainee_test.databinding.FragmentDescriptionBinding
 import com.squareup.picasso.Picasso
@@ -52,6 +57,22 @@ class DescriptionFragment : Fragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val callback: OnBackPressedCallback =
+            object : OnBackPressedCallback(true)
+            {
+                override fun handleOnBackPressed() {
+                }
+            }
+
+        requireActivity().onBackPressedDispatcher.addCallback(requireActivity(),
+            callback
+        )
+    }
+
+
     private fun callCoinDescriptionApi(id: String){
         CoroutineScope(Dispatchers.Main).launch {
             repeat(repeatTimes){
@@ -84,6 +105,7 @@ class DescriptionFragment : Fragment() {
             }
         }
     }
+
 
 
 }
